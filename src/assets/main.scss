@@ -1,0 +1,36 @@
+@import './base.scss';
+
+#app {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 2rem;
+  font-weight: normal;
+}
+
+a,
+.green {
+  text-decoration: none;
+  color: var(--link-color);
+  transition: 0.4s;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: var(--link-highlight-color);
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    display: flex;
+    place-items: center;
+  }
+
+  body:not(.start) {
+    #app {
+      /* display: grid; */
+      /* grid-template-columns: 1fr 1fr; */
+      padding: 0 2rem;
+    }
+  }
+}
