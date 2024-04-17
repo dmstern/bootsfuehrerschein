@@ -9,7 +9,7 @@ const statsStore = useStatsStore();
     <table class="stats__table">
       <tr>
         <td>Fragen:</td>
-        <td>{{ statsStore.stats.length }}</td>
+        <td>{{ statsStore.stats.length - 1 }}</td>
       </tr>
       <tr>
         <td>Fails:</td>
@@ -23,10 +23,11 @@ const statsStore = useStatsStore();
           {{ statsStore.stats.length ? statsStore.stats.filter(q => q.success).length : 0 }}
         </td>
       </tr>
-      <tr>
+      <tr class="stats__percentage"
+        :class="Math.round((statsStore.stats.length ? statsStore.stats.filter(q => q.success).length : 0) / (statsStore.stats.length - 1) * 100) >= 80 ? 'success' : ''">
         <td>Anteil richtig:</td>
         <td>
-          {{ Math.round((statsStore.stats.length ? statsStore.stats.filter(q => q.success).length : 0) / statsStore.stats.length * 100) }}%
+          {{ Math.round((statsStore.stats.length ? statsStore.stats.filter(q => q.success).length : 0) / (statsStore.stats.length - 1) * 100) }}%
         </td>
       </tr>
     </table>
@@ -41,6 +42,14 @@ const statsStore = useStatsStore();
 
   &__table {
     width: 100%;
+  }
+
+  &__percentage {
+    color: rgb(var(--color-error));
+
+    &.success {
+      color: rgb(var(--color-success));
+    }
   }
 
   .card__inner {
