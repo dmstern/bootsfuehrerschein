@@ -14,6 +14,7 @@ const emit = defineEmits(['next'])
 const formState = reactive({
   hasError: false,
   success: false,
+  hadError: false,
 })
 
 const props = defineProps({
@@ -60,8 +61,8 @@ const correctAnswer = props.answers
       <p class="question" v-html="props.question"></p>
       <AnswerComponent v-for="(item, index) in props.answers" :key="`andwer-${index}`" :answer="item" :index="index"
         :formState="formState"
-        :isCorrectAnswer="correctAnswer === index" @next="emit('next')" @error="formState.hasError = true"
-        @clear="formState.hasError = false; formState.success = false" @success="formState.success = true" />
+        :isCorrectAnswer="correctAnswer === index" @next="emit('next')" @error="formState.hasError = true; formState.hadError = true"
+        @clear="formState.hasError = false; formState.success = false" @success="formState.success = true;" />
     </form>
   </Card>
 </template>

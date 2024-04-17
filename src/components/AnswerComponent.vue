@@ -11,8 +11,9 @@ interface Answer {
 }
 
 interface FormState {
-  hasError: Boolean;
-  success: Boolean;
+  hasError: boolean;
+  success: boolean;
+  hadError: boolean;
 }
 
 const props = defineProps({
@@ -46,7 +47,7 @@ function submit() {
     emit('success')
     setTimeout(() => {
       inputState.success = false
-      statsStore.correct();
+      statsStore.correct(!props.formState.hadError);
       emit('clear')
       emit('next')
     }, successDuration)

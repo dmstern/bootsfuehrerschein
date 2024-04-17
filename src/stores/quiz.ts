@@ -54,21 +54,22 @@ export const useLevelStore = defineStore('level', () => {
 })
 
 export const useStatsStore = defineStore('stats', () => {
-  const stats = ref([{ fails: 0 }])
+  const stats = ref([{ fails: 0, success: false }])
 
   function wrong() {
     const currentValue = stats.value[stats.value.length - 1].fails
     stats.value[stats.value.length - 1].fails = currentValue + 1
   }
 
-  function correct() {
-    stats.value.push({
-      fails: 0
-    })
+  function correct(firstTry: boolean) {
+    if (firstTry) {
+      stats.value[stats.value.length - 1].success = true;
+    }
+    stats.value.push({ fails: 0, success: false })
   }
 
   function reset() {
-    stats.value = [{ fails: 0 }]
+    stats.value = [{ fails: 0, success: false }]
   }
 
   return { wrong, correct, stats, reset }

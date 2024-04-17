@@ -13,7 +13,20 @@ const statsStore = useStatsStore();
       </tr>
       <tr>
         <td>Fails:</td>
-        <td>{{ statsStore.stats.length ? statsStore.stats.reduce((a, b) => ({ fails: a.fails + b.fails })).fails : '0' }}
+        <td>
+          {{ statsStore.stats.length ? statsStore.stats.reduce((a, b) => ({ fails: a.fails + b.fails, success: false })).fails : 0 }}
+        </td>
+      </tr>
+      <tr>
+        <td>Richtig:</td>
+        <td>
+          {{ statsStore.stats.length ? statsStore.stats.filter(q => q.success).length : 0 }}
+        </td>
+      </tr>
+      <tr>
+        <td>Anteil richtig:</td>
+        <td>
+          {{ Math.round((statsStore.stats.length ? statsStore.stats.filter(q => q.success).length : 0) / statsStore.stats.length * 100) }}%
         </td>
       </tr>
     </table>
@@ -24,7 +37,7 @@ const statsStore = useStatsStore();
 <style lang="scss">
 .stats {
   border-radius: 2rem;
-  width: 200px;
+  width: 300px;
 
   &__table {
     width: 100%;
