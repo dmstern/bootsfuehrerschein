@@ -10,17 +10,27 @@ interface Answer {
   text: string
 }
 
+interface FormState {
+  hasError: Boolean;
+  success: Boolean;
+}
+
 const props = defineProps({
   index: Number,
   answer: Object as PropType<Answer>,
-  isCorrectAnswer: Boolean
+  isCorrectAnswer: Boolean,
+  formState: Object as PropType<FormState>,
 })
 
 const radioButton = ref(null);
 
-const emit = defineEmits(['next'])
+const emit = defineEmits(['next', 'error', 'clear', 'success'])
 
-const formState = reactive({ hasError: false, success: false, hadError: false })
+const inputState = reactive({
+  hasError: false,
+  success: false,
+  hadError: false
+})
 
 let givenAnswer: Number
 
@@ -32,18 +42,22 @@ function clickAnswer() {
 
 function submit() {
   if (props.isCorrectAnswer || import.meta.env.VITE_SKIP_ALLOWED === 'true') {
-    formState.success = true
+    inputState.success = true
+    emit('success')
     setTimeout(() => {
-      formState.success = false
+      inputState.success = false
       statsStore.correct();
+      emit('clear')
       emit('next')
     }, successDuration)
   } else {
-    formState.hasError = true
-    formState.hadError = true
+    emit('error')
+    inputState.hasError = true
+    inputState.hadError = true
     statsStore.wrong();
     setTimeout(() => {
-      formState.hasError = false
+      inputState.hasError = false
+      emit('clear')
     }, 1000)
   }
 }
@@ -51,10 +65,10 @@ function submit() {
 
 <template>
   <div class="answer"
-    :class="formState.hasError ? 'error' : formState.success ? 'success' : formState.hadError ? 'had-error' : ''"
+    :class="inputState.hasError ? 'error' : inputState.success ? 'success' : inputState.hadError ? 'had-error' : ''"
     @click="clickAnswer">
     <input class="radio" type="radio" name="answer" :id="`answer_${props.index}`" :value="props.index"
-      v-model="givenAnswer" @change="submit" ref="radioButton" />
+      v-model="givenAnswer" @change="submit" ref="radioButton" :disabled="$props.formState.hasError === true || inputState.hadError" />
     <label class="label" :for="`answer_${props.index}`">{{ props.answer.text }}</label>
     <svg width="24" height="24" v-if="props.isCorrectAnswer" class="icon icon--checkmark" data-slot="icon"
       aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"

@@ -2,6 +2,7 @@
 import { useLevelStore } from '../stores/quiz'
 import Card from './Card.vue';
 import AnswerComponent from './AnswerComponent.vue'
+import { reactive } from 'vue';
 
 interface Answer {
   type: boolean
@@ -9,6 +10,11 @@ interface Answer {
 }
 
 const emit = defineEmits(['next'])
+
+const formState = reactive({
+  hasError: false,
+  success: false,
+})
 
 const props = defineProps({
   level: String,
@@ -53,7 +59,9 @@ const correctAnswer = props.answers
       </h2>
       <p class="question" v-html="props.question"></p>
       <AnswerComponent v-for="(item, index) in props.answers" :key="`andwer-${index}`" :answer="item" :index="index"
-        :isCorrectAnswer="correctAnswer === index" @next="emit('next')"/>
+        :formState="formState"
+        :isCorrectAnswer="correctAnswer === index" @next="emit('next')" @error="formState.hasError = true"
+        @clear="formState.hasError = false; formState.success = false" @success="formState.success = true" />
     </form>
   </Card>
 </template>
@@ -73,5 +81,4 @@ const correctAnswer = props.answers
   margin: 1em 0;
   font-style: italic;
 }
-
 </style>
