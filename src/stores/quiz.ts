@@ -52,3 +52,20 @@ export const useLevelStore = defineStore('level', () => {
 
   return { increment, level, reached, set, levels, getNextLevel, restart }
 })
+
+export const useStatsStore = defineStore('stats', () => {
+  const stats = ref([{ fails: -1 }])
+
+  function wrong() {
+    const currentValue = stats.value[stats.value.length - 1].fails;
+    stats.value[stats.value.length - 1].fails = currentValue + 1;
+  }
+
+  function correct() {
+    stats.value.push({
+      fails: 0
+    })
+  }
+
+  return { wrong, correct, stats }
+})

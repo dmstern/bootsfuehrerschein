@@ -19,7 +19,7 @@ onMounted(() => {
 
 <template>
   <main>
-    <QuizApp :questions="fragen" start-text="Los geht's!" level="quiz">
+    <QuizApp :questions="fragen" start-text="Leinen los!" level="quiz">
       <h1>Sportbootsführerschein Binnen Motor</h1>
       <p>
         Interaktives Quiz für den Sportbootsführerschein Binnen
