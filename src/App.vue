@@ -7,6 +7,7 @@ const statsStore = useStatsStore()
 function resetQuiz() {
   levelStore.restart()
   statsStore.reset();
+  document.body.classList.add('quiz', 'start')
 }
 </script>
 

@@ -33,9 +33,9 @@ function clickAnswer() {
 function submit() {
   if (props.isCorrectAnswer || import.meta.env.VITE_SKIP_ALLOWED === 'true') {
     formState.success = true
-    statsStore.correct();
     setTimeout(() => {
       formState.success = false
+      statsStore.correct();
       emit('next')
     }, successDuration)
   } else {

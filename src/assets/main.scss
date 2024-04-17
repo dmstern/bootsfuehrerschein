@@ -2,9 +2,12 @@
 
 #app {
   max-width: var(--container-width);
-  margin: 0 auto;
   padding: 2rem;
   font-weight: normal;
+  
+  .start & {
+    margin: 0 auto;
+  }
 }
 
 a,

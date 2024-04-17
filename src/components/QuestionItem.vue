@@ -42,7 +42,7 @@ const correctAnswer = props.answers
       <CelebrationAnimation v-if="props.level === 'final-riddle'" :duration="successDuration" />
     </div> -->
     <form>
-      <h1>
+      <h2>
         {{
           props.heading
             ? props.heading
@@ -50,7 +50,7 @@ const correctAnswer = props.answers
               ? `Frage Nummer ${props.displayQuest}`
               : 'Naechste Frage'
         }}
-      </h1>
+      </h2>
       <p class="question" v-html="props.question"></p>
       <AnswerComponent v-for="(item, index) in props.answers" :key="`andwer-${index}`" :answer="item" :index="index"
         :isCorrectAnswer="correctAnswer === index" @next="emit('next')"/>

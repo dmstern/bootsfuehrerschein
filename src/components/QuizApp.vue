@@ -4,6 +4,7 @@ import { useLevelStore } from '../stores/quiz'
 import type { PropType } from 'vue'
 import { reactive, onMounted } from 'vue'
 import router from '../router'
+import Stats from './Stats.vue'
 
 const levelStore = useLevelStore()
 
@@ -67,6 +68,7 @@ router.beforeResolve((guard) => {
 })
 
 function nextQuestion() {
+  document.body.classList.remove('start')
   const reachedLastQuestion = props.questions && state.displayQuest >= props.questions?.length
 
   if (reachedLastQuestion) {
@@ -116,15 +118,30 @@ function shuffle(array: Array<any>) {
     </button>
   </div>
   <div v-else>
-    <template v-for="(item, index) in props.questions" :key="`questionItem-${index}`">
-      <QuestionItem :level="props.level" v-if="state.displayQuest == index + 1" :display-quest="state.displayQuest"
-        :question="item.Frage" :answers="shuffle(item.Antworten)" :questionCount="props.questions?.length"
-        :reachedQuest="state.reachedQuest" @next="nextQuestion()" :heading="props.heading" />
-    </template>
+    <div class="quiz-app">
+      <div class="quiz-app__stats">
+        <Stats />
+      </div>
+      <div class="quiz-app__question">
+        <template v-for="(item, index) in props.questions" :key="`questionItem-${index}`">
+          <QuestionItem :level="props.level" v-if="state.displayQuest == index + 1" :display-quest="state.displayQuest"
+            :question="item.Frage" :answers="shuffle(item.Antworten)" :questionCount="props.questions?.length"
+            :reachedQuest="state.reachedQuest" @next="nextQuestion()" :heading="props.heading" />
+        </template>
+      </div>
+    </div>
   </div>
 </template>
 
 <style lang="scss">
+.quiz-app {
+  display: flex;
+
+  &__stats {
+    margin-right: 2rem;
+  }
+}
+
 .start-button {
   padding: 15px 20px;
   font-size: 22px;

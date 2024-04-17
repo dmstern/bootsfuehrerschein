@@ -1,5 +1,11 @@
+<script setup lang="ts">
+const props = defineProps({
+  class: String
+})
+</script>
+
 <template>
-  <div class="card">
+  <div class="card" :class="props.class">
     <div class="card__inner">
       <slot />
     </div>
@@ -11,7 +17,7 @@
   border-radius: 50px;
   border: 2px solid rgb(var(--outline-color));
   background: linear-gradient(-3deg, var(--plane-color) 0%, var(--plane-color--bright) 60%, rgb(var(--outline-color)) 100%);
-  box-shadow: 5px 10px 100px rgba(0,0,0, 0.3);
+  box-shadow: 5px 10px 100px rgba(0, 0, 0, 0.3);
 
   &__inner {
     padding: 100px;
