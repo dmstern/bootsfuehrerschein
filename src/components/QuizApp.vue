@@ -129,7 +129,7 @@ function shuffle(array: Array<any>) {
   padding: 15px 20px;
   font-size: 22px;
   background: transparent;
-  border: 2px solid var(--outline-color);
+  border: 2px solid rgb(var(--outline-color));
   border-radius: 4px;
   color: var(--color-text);
   min-width: 200px;
@@ -149,12 +149,12 @@ function shuffle(array: Array<any>) {
   }
 
   &:hover {
-    background-color: var(--outline-color);
+    background-color: rgb(var(--outline-color));
     color: white;
   }
 
   &:active {
-    color: var(--outline-color);
+    color: rgb(var(--outline-color));
     background-color: white;
   }
 }

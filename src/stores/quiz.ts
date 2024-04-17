@@ -26,7 +26,7 @@ export const useLevelStore = defineStore('level', () => {
 
     if (index > 0 && gotTo) {
       console.log('nagiating to newLevel', newLevel)
-      router.push({ name: newLevel })
+      router.push({ name: newLevel, params: { quest: 0 } })
     }
   }
 
@@ -57,8 +57,8 @@ export const useStatsStore = defineStore('stats', () => {
   const stats = ref([{ fails: -1 }])
 
   function wrong() {
-    const currentValue = stats.value[stats.value.length - 1].fails;
-    stats.value[stats.value.length - 1].fails = currentValue + 1;
+    const currentValue = stats.value[stats.value.length - 1].fails
+    stats.value[stats.value.length - 1].fails = currentValue + 1
   }
 
   function correct() {
@@ -67,5 +67,9 @@ export const useStatsStore = defineStore('stats', () => {
     })
   }
 
-  return { wrong, correct, stats }
+  function reset() {
+    stats.value = [];
+  }
+
+  return { wrong, correct, stats, reset }
 })

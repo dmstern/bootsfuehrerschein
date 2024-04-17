@@ -78,7 +78,7 @@ $colors: #a020f0, #d90429, #ff5800, #007fff;
     height: 1rem;
     width: 1px;
     position: absolute;
-    background-color: var(--outline-color);
+    background-color: rgb(var(--outline-color));
     animation: load var(--duration) linear;
     bottom: 0;
     left: 0;

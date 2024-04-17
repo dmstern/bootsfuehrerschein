@@ -1,15 +1,17 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import { useLevelStore } from './stores/quiz'
+import { useLevelStore, useStatsStore } from './stores/quiz'
 
 const levelStore = useLevelStore()
+const statsStore = useStatsStore()
 function resetQuiz() {
   levelStore.restart()
+  statsStore.reset();
 }
 </script>
 
 <template>
-  <RouterLink to="/" class="reset-button" @click="resetQuiz()"><span>Zum Anfang</span></RouterLink>
+  <RouterLink to="/" class="reset-button" @click="resetQuiz()"><span>Neustart</span></RouterLink>
 
   <RouterView />
 </template>
@@ -24,10 +26,8 @@ header {
   position: absolute;
   bottom: 50px;
   left: 50px;
-  width: 70px;
-  height: 70px;
   background-size: contain;
-  border: none;
+  border: 2px solid rgba(var(--outline-color), .1);
   background-color: transparent;
   outline: none;
   color: white;
@@ -38,13 +38,13 @@ header {
   line-height: 1em;
   cursor: pointer;
   transition: all 500ms ease;
-  border-radius: 50%;
+  border-radius: 1em;
   box-shadow: 2px 2px 10px 1px rgba($color: #000000, $alpha: 0.3);
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 10px;
+  padding: 1em;
   opacity: 0.7;
 
   &:hover {

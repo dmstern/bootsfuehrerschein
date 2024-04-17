@@ -9,8 +9,8 @@
 <style lang="scss">
 .card {
   border-radius: 50px;
-  border: 2px solid var(--outline-color);
-  background: linear-gradient(-3deg, var(--plane-color) 0%, var(--plane-color--bright) 60%, var(--outline-color) 100%);
+  border: 2px solid rgb(var(--outline-color));
+  background: linear-gradient(-3deg, var(--plane-color) 0%, var(--plane-color--bright) 60%, rgb(var(--outline-color)) 100%);
   box-shadow: 5px 10px 100px rgba(0,0,0, 0.3);
 
   &__inner {
