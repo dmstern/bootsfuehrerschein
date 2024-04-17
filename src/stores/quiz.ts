@@ -68,7 +68,7 @@ export const useStatsStore = defineStore('stats', () => {
   }
 
   function reset() {
-    stats.value = [];
+    stats.value = [{ fails: 0 }]
   }
 
   return { wrong, correct, stats, reset }
