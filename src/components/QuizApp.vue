@@ -94,6 +94,15 @@ function nextQuestion() {
 function decode(base64String: string) {
   return atob(base64String)
 }
+
+function shuffle(array: Array<any>) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
 </script>
 
 <template>
@@ -109,7 +118,7 @@ function decode(base64String: string) {
   <div v-else>
     <template v-for="(item, index) in props.questions" :key="`questionItem-${index}`">
       <QuestionItem :level="props.level" v-if="state.displayQuest == index + 1" :display-quest="state.displayQuest"
-        :question="item.Frage" :answers="item.Antworten" :questionCount="props.questions?.length"
+        :question="item.Frage" :answers="shuffle(item.Antworten)" :questionCount="props.questions?.length"
         :reachedQuest="state.reachedQuest" @next="nextQuestion()" :heading="props.heading" />
     </template>
   </div>
@@ -149,5 +158,4 @@ function decode(base64String: string) {
     background-color: white;
   }
 }
-
 </style>
