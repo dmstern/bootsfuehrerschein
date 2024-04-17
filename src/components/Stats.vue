@@ -27,7 +27,7 @@ const statsStore = useStatsStore();
         :class="Math.round((statsStore.stats.length ? statsStore.stats.filter(q => q.success).length : 0) / (statsStore.stats.length - 1) * 100) >= 80 ? 'success' : ''">
         <td>Anteil richtig:</td>
         <td>
-          {{ Math.round((statsStore.stats.length ? statsStore.stats.filter(q => q.success).length : 0) / (statsStore.stats.length - 1) * 100) }}%
+          {{ statsStore.stats.length > 1 ? Math.round((statsStore.stats.length ? statsStore.stats.filter(q => q.success).length : 0) / (statsStore.stats.length - 1) * 100) : 0 }}%
         </td>
       </tr>
     </table>
