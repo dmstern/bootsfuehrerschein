@@ -2,7 +2,7 @@
 import router from '@/router'
 import { useLevelStore } from '../stores/quiz'
 import { onMounted } from 'vue'
-import ParchmentText from '../components/ParchmentText.vue'
+import Card from "../components/Card.vue"
 
 const levelStore = useLevelStore()
 if (!levelStore.reached('quiz-end') && !(import.meta.env.VITE_SKIP_ALLOWED === 'true')) {
@@ -11,7 +11,7 @@ if (!levelStore.reached('quiz-end') && !(import.meta.env.VITE_SKIP_ALLOWED === '
 
 onMounted(() => {
   document.body.classList.remove(...levelStore.levels, 'start')
-  document.body.classList.add('quiz-end', 'fantasy-quiz')
+  document.body.classList.add('quiz-end')
 })
 
 const geoAnswer = import.meta.env.VITE_GEO_ANSWER
@@ -19,7 +19,7 @@ const geoAnswer = import.meta.env.VITE_GEO_ANSWER
 
 <template>
   <main>
-    <ParchmentText :fantasy="true">
+    <Card>
       <h1>Ihr seid fast am Ziel!</h1>
       <p>
         <strong>{{ geoAnswer }}</strong> ist richtig.
@@ -33,7 +33,7 @@ const geoAnswer = import.meta.env.VITE_GEO_ANSWER
           Weg zum kalten Metalle weisen.
         </cite>
       </p>
-    </ParchmentText>
+    </Card>
   </main>
 </template>
 

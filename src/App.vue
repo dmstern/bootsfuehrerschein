@@ -26,7 +26,6 @@ header {
   left: 50px;
   width: 70px;
   height: 70px;
-  background: url('/emerald.png') no-repeat;
   background-size: contain;
   border: none;
   background-color: transparent;
@@ -47,11 +46,6 @@ header {
   text-align: center;
   padding: 10px;
   opacity: 0.7;
-
-  .start & {
-    background: radial-gradient(rgb(223, 165, 223), magenta);
-    font-size: 15px;
-  }
 
   &:hover {
     transform: scale(1.1);

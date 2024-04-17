@@ -25,10 +25,6 @@ $colors: #a020f0, #d90429, #ff5800, #007fff;
   width: $width;
 }
 
-body.success {
-  overflow: hidden;
-}
-
 .celebration-animation {
   --duration: 500ms;
 

@@ -3,10 +3,10 @@ import { ref } from 'vue'
 import router from '../router'
 
 export const useLevelStore = defineStore('level', () => {
-  const levels = ['countdown', 'quiz', 'fantasy-quiz', 'final-riddle', 'quiz-end']
+  const levels = ['quiz', 'quiz-end']
 
   const storedLevel = localStorage.getItem('level')
-  const level = ref(storedLevel || 'countdown')
+  const level = ref(storedLevel || 'quiz')
 
   set(level.value, false)
 

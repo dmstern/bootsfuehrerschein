@@ -4,7 +4,6 @@ import { useLevelStore } from '../stores/quiz'
 import type { PropType } from 'vue'
 import { reactive, onMounted } from 'vue'
 import router from '../router'
-import SunsetAnimation from './SunsetAnimation.vue'
 
 const levelStore = useLevelStore()
 
@@ -26,7 +25,6 @@ const props = defineProps({
   level: String,
   wait: Boolean,
   waitingText: String,
-  fantasy: Boolean,
   heading: String
 })
 
@@ -102,10 +100,9 @@ function decode(base64String: string) {
   <div v-if="state.displayQuest == 0">
     <slot />
     <div v-if="state.isWaiting">
-      <SunsetAnimation @exceeded="state.isWaiting = false" />
-      <p class="wait-text">{{ props.waitingText }}</p>
+      <p>{{ props.waitingText }}</p>
     </div>
-    <button v-else class="riddle-start-button" @click="nextQuestion()">
+    <button v-else class="start-button" @click="nextQuestion()">
       {{ props.startText }}
     </button>
   </div>
@@ -113,13 +110,13 @@ function decode(base64String: string) {
     <template v-for="(item, index) in props.questions" :key="`questionItem-${index}`">
       <QuestionItem :level="props.level" v-if="state.displayQuest == index + 1" :display-quest="state.displayQuest"
         :question="item.Frage" :answers="item.Antworten" :questionCount="props.questions?.length"
-        :reachedQuest="state.reachedQuest" @next="nextQuestion()" :fantasy="props.fantasy" :heading="props.heading" />
+        :reachedQuest="state.reachedQuest" @next="nextQuestion()" :heading="props.heading" />
     </template>
   </div>
 </template>
 
 <style lang="scss">
-.riddle-start-button {
+.start-button {
   padding: 15px 20px;
   font-size: 22px;
   background: transparent;
@@ -135,6 +132,7 @@ function decode(base64String: string) {
   align-items: baseline;
   justify-content: center;
   font-family: var(--base-font);
+  margin-top: 1rem;
 
   .final-riddle & {
     float: none;
@@ -152,12 +150,4 @@ function decode(base64String: string) {
   }
 }
 
-.wait-text {
-  text-align: center;
-  padding-top: 15px;
-  font-style: italic;
-  font-weight: bold;
-  font-size: 32px;
-  font-family: 'My Soul', var(--heading-font);
-}
 </style>
